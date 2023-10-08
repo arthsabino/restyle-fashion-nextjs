@@ -21,7 +21,7 @@ const config: Config = {
           warning: "#f9c31f",
           error: "#ee6375",
           body: {
-            "background-color": "rgb(39, 34, 73)",
+            "background-color": "white",
           },
         },
       },
