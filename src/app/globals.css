@@ -47,7 +47,3 @@
 .content-container {
   @apply container mx-auto;
 }
-
-.product-container {
-  @apply grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3;
-}

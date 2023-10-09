@@ -1,5 +1,5 @@
 import BannerSlider from "@/components/BannerSlider";
-import ProductCard from "@/components/product/ProductCard";
+import ProductCategory from "@/components/product/ProductCategory";
 import { prisma } from "@/lib/db/prisma";
 export default async function Home() {
   const products = await prisma.product.findMany({
@@ -8,10 +8,8 @@ export default async function Home() {
   return (
     <div>
       <BannerSlider />
-      <div className="product-container py-4">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
+      <div className="content-container py-4">
+        <ProductCategory name="Dresses" products={products} />
       </div>
     </div>
   );

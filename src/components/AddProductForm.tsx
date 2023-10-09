@@ -2,7 +2,7 @@
 
 import { env } from "@/env";
 import { getSignature } from "@/lib/_action";
-import { PRODUCT_TAGS } from "@/lib/consts";
+import { PRODUCT_CATEGORY, PRODUCT_TAGS } from "@/lib/consts";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import FormSubmitButton from "./FormSubmitButton";
@@ -13,10 +13,11 @@ export default function AddProductForm() {
     const name = formData.get("name")?.toString();
     const description = formData.get("description")?.toString();
     const tag = formData.get("tag")?.toString();
+    const category = formData.get("category")?.toString();
     const imgFile = formData.get("imgFile") as unknown as File;
     const price = Number(formData.get("price") || 0);
 
-    if (!name || !description || !imgFile || !price) {
+    if (!name || !description || !imgFile || !category || !price) {
       throw Error("Missing required fields");
     }
     const { timestamp, signature } = await getSignature();
@@ -37,6 +38,7 @@ export default function AddProductForm() {
           name,
           description,
           imageUrl: res.data.url,
+          category,
           price,
           tag,
         });
@@ -69,15 +71,27 @@ export default function AddProductForm() {
           className="input input-bordered w-full max-xs"
         />
         <select
+          required
           className="select select-bordered w-full max-w-xs"
-          placeholder="Tags"
-          name="tag"
+          name="category"
         >
-          <option disabled selected>
-            None
+          <option disabled selected value={""}>
+            Category
+          </option>
+          {PRODUCT_CATEGORY.map((categ) => (
+            <option key={categ} value={categ}>
+              {categ}
+            </option>
+          ))}
+        </select>
+        <select className="select select-bordered w-full max-w-xs" name="tag">
+          <option disabled selected value={""}>
+            Tags
           </option>
           {PRODUCT_TAGS.map((tag) => (
-            <option key={tag}>{tag}</option>
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
           ))}
         </select>
         <input
@@ -85,7 +99,7 @@ export default function AddProductForm() {
           name="imgFile"
           placeholder="Image File"
           type="file"
-          className="file-input file-input-bordered file-input-primary w-full max-w-xs"
+          className="file-input file-input-bordered file-input-neutral w-full max-w-xs"
         />
       </div>
       <FormSubmitButton className="btn-secondary btn-block">

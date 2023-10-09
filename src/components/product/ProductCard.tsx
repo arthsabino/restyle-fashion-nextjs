@@ -12,7 +12,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="card w-full bg-secondary hover:scale-[1.02] transition-transform"
+      className="card bg-secondary w-96 card-compact hover:scale-[1.02] transition-transform"
     >
       <div className="relative">
         <Badge type={"FEATURED"} className="absolute top-0 left-0" />
@@ -22,11 +22,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             width={400}
             height={800}
-            className="h-full object-cover rounded"
+            className="h-48 object-cover"
           />
         </figure>
       </div>
-      <div className="card-body hidden">
+      <div className="card-body">
         <h2 className="card-title">{product.name}</h2>
         <p>{product.description}</p>
         <PriceTag price={product.price} />

@@ -1,10 +1,10 @@
 import noProfilePic from "@/assets/profile-pic-placeholder.png";
-import { PRODUCT_TYPES } from "@/lib/consts";
+import { PRODUCT_CATEGORY } from "@/lib/consts";
 import Image from "next/image";
 import Link from "next/link";
 import Logo from "../Logo";
 export default function Navbar() {
-  const navigations = PRODUCT_TYPES.map((t) => ({ text: t, href: "/" }));
+  const navigations = PRODUCT_CATEGORY.map((t) => ({ text: t, href: "/" }));
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -24,6 +24,9 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
+        <Link href={"/add-product"}>
+          <button className="btn btn-primary">Add Product</button>
+        </Link>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
             <div className="indicator">
