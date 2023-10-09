@@ -2,3 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'dancing-script';
+    src: url('../assets/fonts/dancing-script/DancingScript-Bold.ttf') format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 700;
+    font-stretch: normal;
+  }
+
+  @font-face {
+    font-family: 'dancing-script';
+    src: url('../assets/fonts/dancing-script/DancingScript-SemiBold.ttf') format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-stretch: normal;
+  }
+
+  @font-face {
+    font-family: 'dancing-script';
+    src: url('../assets/fonts/dancing-script/DancingScript-Medium.ttf') format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+  }
+
+  @font-face {
+    font-family: 'dancing-script';
+    src: url('../assets/fonts/dancing-script/DancingScript-Regular.ttf') format('truetype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: normal;
+  }
+}
+
+.dancing-script {
+  @apply font-['dancing-script'];
+}
+
+.content-container {
+  @apply container mx-auto;
+}
+
+.product-container {
+  @apply grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3;
+}

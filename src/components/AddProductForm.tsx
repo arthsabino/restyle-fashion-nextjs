@@ -2,6 +2,7 @@
 
 import { env } from "@/env";
 import { getSignature } from "@/lib/_action";
+import { PRODUCT_TAGS } from "@/lib/consts";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import FormSubmitButton from "./FormSubmitButton";
@@ -11,6 +12,7 @@ export default function AddProductForm() {
   async function addProduct(formData: FormData) {
     const name = formData.get("name")?.toString();
     const description = formData.get("description")?.toString();
+    const tag = formData.get("tag")?.toString();
     const imgFile = formData.get("imgFile") as unknown as File;
     const price = Number(formData.get("price") || 0);
 
@@ -36,6 +38,7 @@ export default function AddProductForm() {
           description,
           imageUrl: res.data.url,
           price,
+          tag,
         });
         push("/");
       }
@@ -57,20 +60,32 @@ export default function AddProductForm() {
         placeholder="Description"
         className="textarea textarea-bordered mb-3 w-full"
       />
-      <div className="flex items-center gap-x-3">
+      <div className="flex items-center gap-x-3 mb-3">
         <input
           required
           name="price"
           placeholder="Price"
           type="number"
-          className="input input-bordered w-full max-xs mb-3"
+          className="input input-bordered w-full max-xs"
         />
+        <select
+          className="select select-bordered w-full max-w-xs"
+          placeholder="Tags"
+          name="tag"
+        >
+          <option disabled selected>
+            None
+          </option>
+          {PRODUCT_TAGS.map((tag) => (
+            <option key={tag}>{tag}</option>
+          ))}
+        </select>
         <input
           required
           name="imgFile"
           placeholder="Image File"
           type="file"
-          className="file-input file-input-bordered file-input-primary w-full max-w-xs mb-3"
+          className="file-input file-input-bordered file-input-primary w-full max-w-xs"
         />
       </div>
       <FormSubmitButton className="btn-secondary btn-block">
