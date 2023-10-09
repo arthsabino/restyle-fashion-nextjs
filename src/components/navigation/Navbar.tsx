@@ -6,7 +6,7 @@ import Logo from "../Logo";
 export default function Navbar() {
   const navigations = PRODUCT_CATEGORY.map((t) => ({ text: t, href: "/" }));
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-primary sticky top-0 z-20">
       <div className="navbar-start">
         <Link href={"/"}>
           <Logo />
@@ -25,7 +25,7 @@ export default function Navbar() {
       </div>
       <div className="navbar-end">
         <Link href={"/add-product"}>
-          <button className="btn btn-primary">Add Product</button>
+          <button className="btn btn-error">Add Product</button>
         </Link>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">

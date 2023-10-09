@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 export default function AddProductPage() {
   return (
-    <div className="bg-primary py-8">
+    <div className="bg-base-100 flex items-center justify-center py-8">
       <div className="content-container">
         <h1 className="text-lg mb-3 font-bold">Add Product</h1>
         <AddProductForm />
