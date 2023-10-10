@@ -12,7 +12,7 @@ export default function Footer() {
     { text: "contact us", href: "/" },
   ];
   return (
-    <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded mt-8">
+    <footer className="footer footer-center p-10 text-base-content rounded mt-8">
       <nav className="flex flex-wrap items-center justify-center gap-4">
         {footerLinks.map((l) => (
           <Link key={l.text} href={l.href} className="link link-hover">

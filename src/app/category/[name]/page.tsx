@@ -6,6 +6,8 @@ interface CategoryPageProps {
   params: { name: string };
 }
 
+export const revalidate = 0;
+
 async function getProductsByCategory(name: string): Promise<Product[]> {
   const res = await prisma.product.findMany({
     where: {
@@ -19,7 +21,7 @@ export default async function CategoryPage({
 }: CategoryPageProps) {
   const products = await getProductsByCategory(name);
   return products && products.length > 0 ? (
-    <div className="content-container">
+    <div className="content-container py-4">
       <h2 className="text-center font-semibold text-6xl dancing-script">
         {name}
       </h2>

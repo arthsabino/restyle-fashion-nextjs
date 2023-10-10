@@ -40,6 +40,18 @@
   }
 }
 
+::-webkit-scrollbar {
+  display: block;
+  width: 7px;
+  height: 5px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-[6.39px] bg-neutral;
+}
+
+
 .dancing-script {
   @apply font-['dancing-script'];
 }

@@ -16,11 +16,9 @@ export default function ProductCategory({
 }: ProductCategoryProps) {
   return (
     <div className={twMerge("py-4 relative w-full", className)}>
-      <h3 className="text-center font-semibold text-4xl dancing-script">
-        {name}
-      </h3>
+      <h3 className="font-semibold text-4xl dancing-script">{name}</h3>
       {products && products.length > 0 ? (
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-3 mt-2">
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}

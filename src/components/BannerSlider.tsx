@@ -6,7 +6,7 @@ import { svgs } from "./util/SVGImages";
 export default function BannerSlider() {
   const ref = useRef<Slider>(null);
   return (
-    <div className="bg-accent relative py-8">
+    <div className="bg-neutral relative py-8">
       <div className="content-container">
         <Slider slidesToShow={1} arrows={false} ref={ref}>
           <Image
