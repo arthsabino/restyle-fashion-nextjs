@@ -4,7 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "../Logo";
 export default function Navbar() {
-  const navigations = PRODUCT_CATEGORY.map((t) => ({ text: t, href: "/" }));
+  const navigations = PRODUCT_CATEGORY.map((t) => ({
+    text: t,
+    href: `/category/${t.toLowerCase()}`,
+  }));
   return (
     <div className="navbar bg-primary sticky top-0 z-20">
       <div className="navbar-start">
@@ -23,9 +26,9 @@ export default function Navbar() {
           ))}
         </ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end gap-x-2">
         <Link href={"/add-product"}>
-          <button className="btn btn-error">Add Product</button>
+          <button className="btn btn-secondary">Add Product</button>
         </Link>
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">

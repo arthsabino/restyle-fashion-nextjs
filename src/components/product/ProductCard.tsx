@@ -16,7 +16,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     <Link
       href={`/products/${product.id}`}
       className={twMerge(
-        `card bg-secondary w-96 card-compact transition-transform shadow-xl`,
+        `card bg-primary w-96 card-compact transition-transform shadow-xl hover:scale-[97%] duration-200`,
         className
       )}
     >
@@ -33,7 +33,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
             alt={product.name}
             width={400}
             height={800}
-            className="h-80 object-cover rounded-t-xl"
+            className="h-72 object-cover rounded-t-xl"
           />
         </figure>
       </div>
@@ -45,3 +45,24 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     </Link>
   );
 }
+
+// export function ProductCardv2({ product, className }: ProductCardProps) {
+//   return (
+//     <Link href={`/products/${product.id}`} className="my-4">
+//       <div className="bg-primary rounded-xl group hover:scale-[1.02] hover:duration-200">
+//         <Image
+//           src={product.imageUrl}
+//           alt={product.name}
+//           width={400}
+//           height={800}
+//           className="h-72 w-full object-cover rounded-t-xl"
+//         />
+//         <div className="p-4 gap-2">
+//           <h4 className="text-xl mb-1">{product.name}</h4>
+//           <p>{product.description}</p>
+//           <PriceTag price={product.price} />
+//         </div>
+//       </div>
+//     </Link>
+//   );
+// }

@@ -20,6 +20,9 @@ export default function AddProductForm() {
     if (!name || !description || !imgFile || !category || !price) {
       throw Error("Missing required fields");
     }
+
+    const shortName = name.toLowerCase().replace(" ", "-");
+
     const { timestamp, signature } = await getSignature();
     const clFormData = new FormData();
     clFormData.append("file", imgFile);
@@ -36,9 +39,10 @@ export default function AddProductForm() {
       if (res && res.data && res.status === 200) {
         const p = await axios.post("/api/upload-image", {
           name,
+          shortName,
           description,
           imageUrl: res.data.url,
-          category,
+          category: category.toLowerCase(),
           price,
           tag,
         });
@@ -99,7 +103,7 @@ export default function AddProductForm() {
           name="imgFile"
           placeholder="Image File"
           type="file"
-          className="file-input file-input-bordered file-input-neutral w-full max-w-xs"
+          className="file-input file-input-bordered w-full max-w-xs"
         />
       </div>
       <FormSubmitButton className="btn-secondary btn-block">
