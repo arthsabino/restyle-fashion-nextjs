@@ -1,6 +1,7 @@
 import ProductCard from "@/components/product/ProductCard";
 import { prisma } from "@/lib/db/prisma";
 import { Product } from "@prisma/client";
+import PageTitle from "../title";
 
 interface CategoryPageProps {
   params: { name: string };
@@ -22,9 +23,7 @@ export default async function CategoryPage({
   const products = await getProductsByCategory(name);
   return products && products.length > 0 ? (
     <div className="content-container py-4">
-      <h2 className="text-center font-semibold text-6xl dancing-script">
-        {name}
-      </h2>
+      <PageTitle title={name} />
       <div className="py-4 flex items-center"></div>
       <div className="product-container">
         {products.map((p) => (

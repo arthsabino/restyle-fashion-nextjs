@@ -57,7 +57,7 @@
 }
 
 .content-container {
-  @apply container mx-auto;
+  @apply container px-4 mx-auto;
 }
 
 .product-container {
