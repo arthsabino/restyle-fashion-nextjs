@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductReview from "./ProductReviews";
+import { incrementProductQuantity } from "./actions";
 
 interface ProductPageProps {
   params: { shortName: string };
@@ -43,7 +44,10 @@ export default async function ProductPage({
           />
         </div>
         <div className="w-full md:w-1/2">
-          <ProductDetails product={product} />
+          <ProductDetails
+            product={product}
+            incrementProductQuantity={incrementProductQuantity}
+          />
           <div className="mt-12">
             <span className="italic">Feedback & Reviews</span>
             <div className="border-t-neutral border-t-2 h-2 mt-2">

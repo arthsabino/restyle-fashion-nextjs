@@ -7,8 +7,12 @@ import { useState } from "react";
 
 interface ProductDetailsProps {
   product: Product;
+  incrementProductQuantity: (productId: string, qty: number) => Promise<void>;
 }
-export default function ProductDetails({ product }: ProductDetailsProps) {
+export default function ProductDetails({
+  product,
+  incrementProductQuantity,
+}: ProductDetailsProps) {
   const [qty, setQty] = useState(1);
   const handleChangeQty = (num: number) => {
     setQty((prev) => {
@@ -57,7 +61,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <p>{product.description}</p>
       </Accordion>
       <div className="flex justify-end">
-        <AddToCartButton productId={product.id} qty={qty} />
+        <AddToCartButton
+          productId={product.id}
+          qty={qty}
+          incrementProductQuantity={incrementProductQuantity}
+        />
       </div>
     </>
   );
