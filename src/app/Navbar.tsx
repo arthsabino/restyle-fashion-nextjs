@@ -1,14 +1,17 @@
 import noProfilePic from "@/assets/profile-pic-placeholder.png";
 import { PRODUCT_CATEGORY } from "@/lib/consts";
+import { getCart } from "@/lib/db/cart";
+import { formatPrice } from "@/lib/format";
 import Image from "next/image";
 import Link from "next/link";
-import Logo from "../Logo";
-import { svgs } from "../util/SVGImages";
-export default function Navbar() {
+import Logo from "../components/Logo";
+import { svgs } from "../components/util/SVGImages";
+export default async function Navbar() {
   const navigations = PRODUCT_CATEGORY.map((t) => ({
     text: t,
     href: `/category/${t.toLowerCase()}`,
   }));
+  const cart = await getCart();
   return (
     <div className="navbar bg-primary sticky top-0 z-20">
       <div className="navbar-start">
@@ -35,7 +38,9 @@ export default function Navbar() {
           <label tabIndex={0} className="btn btn-ghost btn-circle">
             <div className="indicator">
               <span className="h-5 w-5">{svgs.cart}</span>
-              <span className="badge badge-sm indicator-item">8</span>
+              <span className="badge badge-sm indicator-item">
+                {cart?.size || 0}
+              </span>
             </div>
           </label>
           <div
@@ -43,8 +48,12 @@ export default function Navbar() {
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           >
             <div className="card-body">
-              <span className="font-bold text-lg">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="font-bold text-lg">{`${
+                cart?.size || 0
+              } Items`}</span>
+              <span className="text-info">{`Subtotal: ${formatPrice(
+                cart?.subtotal || 0
+              )}`}</span>
               <div className="card-actions">
                 <Link href={"/user/cart"} className="w-full">
                   <button className="btn btn-primary btn-block">

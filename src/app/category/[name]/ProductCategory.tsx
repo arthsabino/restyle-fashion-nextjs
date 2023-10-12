@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { Product } from "@prisma/client";
 import { twMerge } from "tailwind-merge";
-import ProductCard from "./ProductCard";
+import ProductCard from "../../../components/product/ProductCard";
 
 interface ProductCategoryProps {
   name: string;

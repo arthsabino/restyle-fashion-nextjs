@@ -1,14 +1,24 @@
 import ProductCard from "@/components/product/ProductCard";
 import { prisma } from "@/lib/db/prisma";
 import { Product } from "@prisma/client";
-import PageTitle from "../title";
+import { Metadata } from "next";
+import PageTitle from "./title";
 
 interface CategoryPageProps {
   params: { name: string };
 }
 
 export const revalidate = 0;
-
+export function generateMetadata({
+  params: { name },
+}: CategoryPageProps): Metadata {
+  return {
+    title: `${name[0].toUpperCase()}${name.substring(
+      1,
+      name.length
+    )} - ReStyle Fashion`,
+  };
+}
 async function getProductsByCategory(name: string): Promise<Product[]> {
   const res = await prisma.product.findMany({
     where: {
@@ -17,6 +27,7 @@ async function getProductsByCategory(name: string): Promise<Product[]> {
   });
   return res;
 }
+
 export default async function CategoryPage({
   params: { name },
 }: CategoryPageProps) {

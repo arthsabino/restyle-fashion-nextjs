@@ -1,9 +1,10 @@
-import ProductDetails from "@/components/product/ProductDetails";
+import ProductDetails from "@/app/products/[shortName]/ProductDetails";
 import { prisma } from "@/lib/db/prisma";
 import { Product } from "@prisma/client";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import ProductReview from "./ProductReviews";
 
 interface ProductPageProps {
   params: { shortName: string };
@@ -41,7 +42,15 @@ export default async function ProductPage({
             className="object-cover rounded"
           />
         </div>
-        <ProductDetails product={product} />
+        <div className="w-full md:w-1/2">
+          <ProductDetails product={product} />
+          <div className="mt-12">
+            <span className="italic">Feedback & Reviews</span>
+            <div className="border-t-neutral border-t-2 h-2 mt-2">
+              <ProductReview />
+            </div>
+          </div>
+        </div>
       </div>
     </article>
   );

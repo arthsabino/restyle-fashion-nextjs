@@ -13,6 +13,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, className }: ProductCardProps) {
+  console.log(product);
   return (
     <Link
       href={`/products/${product.shortName}`}

@@ -1,5 +1,5 @@
-import Footer from "@/components/navigation/Footer";
-import Navbar from "@/components/navigation/Navbar";
+import Footer from "@/app/Footer";
+import Navbar from "@/app/Navbar";
 import type { Metadata } from "next";
 import { Signika } from "next/font/google";
 import "slick-carousel/slick/slick-theme.css";

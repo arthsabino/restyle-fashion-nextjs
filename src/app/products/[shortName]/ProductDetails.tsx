@@ -1,9 +1,9 @@
 "use client";
+import AddToCartButton from "@/app/products/[shortName]/AddToCartButton";
+import Accordion from "@/components/Accordion";
+import PriceTag from "@/components/product/PriceTag";
 import { Product } from "@prisma/client";
 import { useState } from "react";
-import AddToCartButton from "../button/AddToCartButton";
-import PriceTag from "./PriceTag";
-import ProductReview from "./ProductReviews";
 
 interface ProductDetailsProps {
   product: Product;
@@ -22,10 +22,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     });
   };
   return (
-    <div className="w-full md:w-1/2">
+    <>
       <div className="text-center">
         <h2 className="font-bold text-4xl">{product.name}</h2>
-        <PriceTag price={product.price} className="font-bold text-2xl" />
+        <PriceTag
+          price={product.price}
+          className="font-bold text-2xl text-accent"
+        />
         <div className="border-y border-y-black py-2 my-4 flex items-center w-full">
           <div className="w-1/5 flex justify-center">
             <button
@@ -50,16 +53,12 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <span className="italic pr-1">In stock:</span>
         {product.quantity ?? 0}
       </div>
-      <div className="my-8 p-4 bg-grey">
+      <Accordion title="Product details:" className="my-4 md:mb-6" defaultOpen>
         <p>{product.description}</p>
+      </Accordion>
+      <div className="flex justify-end">
+        <AddToCartButton productId={product.id} qty={qty} />
       </div>
-      <AddToCartButton />
-      <div className="mt-12">
-        <span className="italic">Feedback & Reviews</span>
-        <div className="border-t-neutral border-t-2 h-2 mt-2">
-          <ProductReview />
-        </div>
-      </div>
-    </div>
+    </>
   );
 }

@@ -48,7 +48,7 @@
 
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-[6.39px] bg-neutral;
+  @apply rounded-[6.39px] bg-dark1;
 }
 
 
@@ -66,4 +66,21 @@
 
 .slick-slide > div {
   @apply py-0 px-1 md:px-2;
+}
+
+/* animations */
+.checkmark {
+  stroke: green;
+  stroke-dashoffset: 745.74853515625;
+  stroke-dasharray: 745.74853515625;
+  animation: dash 2s ease-out forwards;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 745.74853515625;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
 }

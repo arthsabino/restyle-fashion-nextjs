@@ -1,5 +1,5 @@
+import ProductCategory from "@/app/category/[name]/ProductCategory";
 import BannerSlider from "@/components/BannerSlider";
-import ProductCategory from "@/components/product/ProductCategory";
 import { PRODUCT_CATEGORY } from "@/lib/consts";
 import { prisma } from "@/lib/db/prisma";
 

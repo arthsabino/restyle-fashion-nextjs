@@ -5,6 +5,7 @@ const config: Config = {
     extend: {
       colors: {
         grey: "rgba(239, 239, 239, 1)",
+        dark1: "rgba(50, 61, 56, 1)",
       },
     },
   },
@@ -29,7 +30,7 @@ const config: Config = {
           // error: "#e14164",
           primary: "#f9b8f1",
           secondary: "#f2ed54",
-          accent: "#f0f9a9",
+          accent: "#9b4e91",
           neutral: "#2a232e",
           "base-100": "#f3eaf6",
           info: "#7bb2e5",
