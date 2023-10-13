@@ -10,15 +10,20 @@ import PriceTag from "./PriceTag";
 interface ProductCardProps {
   product: Product;
   className?: string;
+  hideBtn?: boolean;
 }
 
-export default function ProductCard({ product, className }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  className,
+  hideBtn = false,
+}: ProductCardProps) {
   console.log(product);
   return (
     <Link
       href={`/products/${product.shortName}`}
       className={twMerge(
-        `card bg-base-content text-white card-compact sm:w-96 group shadow-xl duration-200 relative`,
+        `card bg-base-content text-white card-compact w-full group hover:scale-95 duration-200 relative`,
         className
       )}
     >
@@ -26,7 +31,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         <Image
           src={product.imageUrl}
           alt={product.name}
-          width={400}
+          width={600}
           height={800}
           className="h-72 object-cover"
         />
@@ -46,16 +51,18 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           />
         </h2>
         <span className="group-hover:text-primary">{product.name}</span>
-        <div className="card-actions justify-end">
-          <button
-            className="btn btn-primary"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            Buy Now
-          </button>
-        </div>
+        {!hideBtn ? (
+          <div className="card-actions justify-end">
+            <button
+              className="btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              Buy Now
+            </button>
+          </div>
+        ) : null}
       </div>
     </Link>
   );

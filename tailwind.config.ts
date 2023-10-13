@@ -4,6 +4,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        gray: "rgba(128, 128, 128, 1)",
         grey: "rgba(239, 239, 239, 1)",
         dark1: "rgba(50, 61, 56, 1)",
       },

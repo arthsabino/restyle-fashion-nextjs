@@ -2,7 +2,6 @@
 import { useState, useTransition } from "react";
 import { twMerge } from "tailwind-merge";
 import { svgs } from "../../../components/util/SVGImages";
-import { incrementProductQuantity } from "./actions";
 
 interface AddToCartButtonProps {
   productId: string;
@@ -16,6 +15,7 @@ export default function AddToCartButton({
   qty,
   className,
   btnCls,
+  incrementProductQuantity,
 }: AddToCartButtonProps) {
   const [isPending, startTransition] = useTransition();
   const [success, setSuccess] = useState(false);
@@ -27,7 +27,7 @@ export default function AddToCartButton({
       )}
     >
       <button
-        className={twMerge("btn btn-primary", btnCls)}
+        className={twMerge("btn btn-accent", btnCls)}
         onClick={() => {
           setSuccess(false);
           startTransition(async () => {

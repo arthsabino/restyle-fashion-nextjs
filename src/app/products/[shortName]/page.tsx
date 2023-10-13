@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import ProductReview from "./ProductReviews";
+import RecommendedProducts from "./RecommendedProducts";
 import { incrementProductQuantity } from "./actions";
 
 interface ProductPageProps {
@@ -49,12 +50,21 @@ export default async function ProductPage({
             incrementProductQuantity={incrementProductQuantity}
           />
           <div className="mt-12">
-            <span className="italic">Feedback & Reviews</span>
-            <div className="border-t-neutral border-t-2 h-2 mt-2">
-              <ProductReview />
+            <div className="divider before:bg-neutral after:bg-neutral">
+              <span className="italic">Feedback & Reviews</span>
             </div>
+            <ProductReview />
           </div>
         </div>
+      </div>
+      <div className="mt-16">
+        <div className="divider before:bg-neutral after:bg-neutral">
+          <span className="italic">Recommended Items</span>
+        </div>
+        <RecommendedProducts
+          currentProductId={product.id}
+          category={product.category}
+        />
       </div>
     </article>
   );

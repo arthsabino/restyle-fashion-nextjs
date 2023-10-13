@@ -1,29 +1,26 @@
 "use client";
 import AddToCartButton from "@/app/products/[shortName]/AddToCartButton";
 import Accordion from "@/components/Accordion";
+import ChangeQtyBtn from "@/components/cart/ChangeQtyBtn";
 import PriceTag from "@/components/product/PriceTag";
+import { computeQty } from "@/lib/productUtil";
 import { Product } from "@prisma/client";
 import { useState } from "react";
 
 interface ProductDetailsProps {
   product: Product;
-  incrementProductQuantity: (productId: string, qty: number) => Promise<void>;
+  incrementProductQuantity: (
+    productId: string,
+    qty: number
+  ) => Promise<void>;
 }
 export default function ProductDetails({
   product,
   incrementProductQuantity,
 }: ProductDetailsProps) {
   const [qty, setQty] = useState(1);
-  const handleChangeQty = (num: number) => {
-    setQty((prev) => {
-      if (num < 0 && prev === 0) {
-        return 0;
-      } else if (num > 0 && prev >= (product.quantity ?? 1)) {
-        return prev;
-      } else {
-        return prev + num;
-      }
-    });
+  const handleQty = (num: number) => {
+    setQty(computeQty(product.stock, num, qty));
   };
   return (
     <>
@@ -35,27 +32,17 @@ export default function ProductDetails({
         />
         <div className="border-y border-y-black py-2 my-4 flex items-center w-full">
           <div className="w-1/5 flex justify-center">
-            <button
-              className="btn-neutral btn"
-              onClick={() => handleChangeQty(-1)}
-            >
-              <span className="text-2xl">-</span>
-            </button>
+            <ChangeQtyBtn onClick={() => handleQty(-1)}>-</ChangeQtyBtn>
           </div>
           <span className="w-3/5 text-center">{qty}</span>
           <div className="w-1/5 flex justify-center">
-            <button
-              className="btn-neutral btn"
-              onClick={() => handleChangeQty(1)}
-            >
-              <span className="text-2xl">+</span>
-            </button>
+            <ChangeQtyBtn onClick={() => handleQty(1)}>+</ChangeQtyBtn>
           </div>
         </div>
       </div>
       <div className="w-full text-right">
         <span className="italic pr-1">In stock:</span>
-        {product.quantity ?? 0}
+        {product.stock ?? 0}
       </div>
       <Accordion title="Product details:" className="my-4 md:mb-6" defaultOpen>
         <p>{product.description}</p>

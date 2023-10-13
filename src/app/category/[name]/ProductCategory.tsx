@@ -1,5 +1,6 @@
 "use client";
 
+import NoData from "@/components/NoData";
 import { Product } from "@prisma/client";
 import { twMerge } from "tailwind-merge";
 import ProductCard from "../../../components/product/ProductCard";
@@ -14,19 +15,24 @@ export default function ProductCategory({
   products,
   className,
 }: ProductCategoryProps) {
+  console.log(products);
   return (
     <div className={twMerge("py-4 relative w-full", className)}>
       <h3 className="font-semibold text-4xl dancing-script">{name}</h3>
       {products && products.length > 0 ? (
-        <div className="grid md-grid-cols-2 grid-cols-1 md:grid-cols-3 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-2">
+          {products.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+          {products.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
           {products.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
       ) : (
-        <div className="h-40 flex mt-2 items-center justify-center bg-base-200">
-          No data...
-        </div>
+        <NoData />
       )}
     </div>
   );

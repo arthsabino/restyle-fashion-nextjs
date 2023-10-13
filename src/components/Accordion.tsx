@@ -21,14 +21,14 @@ export default function Accordion({
     <div className={className}>
       <div
         className={twMerge(
-          `shadow-xl collapse bg-base-200 collapse-arrow ${
+          `shadow-xl collapse bg-base-200 collapse-arrow  ${
             isOpen ? "collapse-open" : "collapse-close"
           }`,
           collapseCls
         )}
       >
         <div
-          className="collapse-title text-xl font-medium"
+          className="collapse-title text-xl font-medium cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           {title}

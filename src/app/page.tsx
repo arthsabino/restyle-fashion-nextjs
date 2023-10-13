@@ -21,9 +21,9 @@ export default async function Home() {
             <div className="content-container">
               <ProductCategory
                 name={c}
-                products={products.filter(
-                  (p) => p.category === c.toLowerCase()
-                )}
+                products={products
+                  .filter((p) => p.category === c.toLowerCase())
+                  .splice(0, 3)}
               />
             </div>
           </div>

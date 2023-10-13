@@ -14,6 +14,7 @@ export default function AddProductForm() {
     const description = formData.get("description")?.toString();
     const tag = formData.get("tag")?.toString();
     const category = formData.get("category")?.toString();
+    const stock = Number(formData.get("stock") || 0);
     const imgFile = formData.get("imgFile") as unknown as File;
     const price = Number(formData.get("price") || 0);
 
@@ -21,8 +22,7 @@ export default function AddProductForm() {
       throw Error("Missing required fields");
     }
 
-    const shortName = name.toLowerCase().replace(" ", "-");
-
+    const shortName = name.toLowerCase().replaceAll(/\s/g, "-");
     const { timestamp, signature } = await getSignature();
     const clFormData = new FormData();
     clFormData.append("file", imgFile);
@@ -37,10 +37,11 @@ export default function AddProductForm() {
         clFormData
       );
       if (res && res.data && res.status === 200) {
-        const p = await axios.post("/api/upload-image", {
+        const p = await axios.post("/api/create-product", {
           name,
           shortName,
           description,
+          stock,
           imageUrl: res.data.url,
           category: category.toLowerCase(),
           price,
@@ -74,9 +75,18 @@ export default function AddProductForm() {
           type="number"
           className="input input-bordered w-full max-xs"
         />
+        <input
+          required
+          name="stock"
+          placeholder="Stock"
+          type="number"
+          className="input input-bordered w-full max-xs"
+        />
+      </div>
+      <div>
         <select
           required
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full mb-3"
           name="category"
         >
           <option disabled selected value={""}>
@@ -88,24 +98,24 @@ export default function AddProductForm() {
             </option>
           ))}
         </select>
-        <select className="select select-bordered w-full max-w-xs" name="tag">
-          <option disabled selected value={""}>
-            Tags
-          </option>
-          {PRODUCT_TAGS.map((tag) => (
-            <option key={tag} value={tag}>
-              {tag}
-            </option>
-          ))}
-        </select>
-        <input
-          required
-          name="imgFile"
-          placeholder="Image File"
-          type="file"
-          className="file-input file-input-bordered w-full max-w-xs"
-        />
       </div>
+      <select className="select select-bordered w-full mb-3" name="tag">
+        <option disabled selected value={""}>
+          Tags
+        </option>
+        {PRODUCT_TAGS.map((tag) => (
+          <option key={tag} value={tag}>
+            {tag}
+          </option>
+        ))}
+      </select>
+      <input
+        required
+        name="imgFile"
+        placeholder="Image File"
+        type="file"
+        className="file-input file-input-bordered w-full mb-3"
+      />
       <FormSubmitButton className="btn-secondary btn-block">
         Add Product
       </FormSubmitButton>
