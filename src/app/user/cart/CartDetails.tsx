@@ -2,7 +2,7 @@ import Accordion from "@/components/Accordion";
 import CartEntry from "@/components/CartEntry";
 import NoData from "@/components/NoData";
 import { getCart } from "@/lib/db/cart";
-import { setProductQty } from "./action";
+import { removeItemFromCart, setProductQty } from "./action";
 
 interface CartDetailsProps {
   className?: string;
@@ -18,7 +18,12 @@ export default async function CartDetails({ className }: CartDetailsProps) {
       >
         {cart && cart?.items.length > 0 ? (
           cart?.items.map((i) => (
-            <CartEntry key={i.id} item={i} setProductQty={setProductQty} />
+            <CartEntry
+              key={i.id}
+              item={i}
+              setProductQty={setProductQty}
+              removeItemFromCart={removeItemFromCart}
+            />
           ))
         ) : (
           <NoData />

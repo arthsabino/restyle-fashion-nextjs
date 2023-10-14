@@ -14,6 +14,7 @@ const nextConfig = {
       { hostname: "images.unsplash.com" },
       { hostname: "lh3.google.com" },
       { hostname: "res.cloudinary.com" },
+      { hostname: "lh3.googleusercontent.com" },
     ],
   },
   experimental: {

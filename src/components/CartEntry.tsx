@@ -4,24 +4,32 @@ import { formatPrice } from "@/lib/format";
 import { computeQty } from "@/lib/productUtil";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import DescriptionRow from "./DescriptionRow";
 import ChangeQtyBtn from "./cart/ChangeQtyBtn";
 
 interface CartEntryProps {
   item: CartItemWithProduct;
   setProductQty: (productId: string, qty: number) => Promise<void>;
+  removeItemFromCart: (productId: string) => Promise<void>;
 }
-export default function CartEntry({ item, setProductQty }: CartEntryProps) {
+export default function CartEntry({
+  item,
+  setProductQty,
+  removeItemFromCart,
+}: CartEntryProps) {
+  const [isPending, startTransition] = useTransition();
   const [qty, setQty] = useState(item.quantity);
   const handleIncrement = (num: number) => {
     const computed = computeQty(item.product.stock, num, qty);
-
     setQty(computed);
-    setProductQty(item.product.id, computed);
+    startTransition(async () => {
+      setProductQty(item.product.id, computed);
+    });
   };
   return (
     <div>
-      <div className="flex gap-4 items-stretch relative text-white">
+      <div className="flex gap-4 items-start sm:items-stretch relative text-white">
         <Image
           src={item.product.imageUrl}
           alt={item.product.name}
@@ -36,35 +44,41 @@ export default function CartEntry({ item, setProductQty }: CartEntryProps) {
           >
             {item.product.name}
           </Link>
-          <div className="flex flex-col justify-center flex-1">
-            <span>
-              <span className="text-gray mr-1">Description:</span>
-              {item.product.description}
-            </span>
-            <span>
-              <span className="text-gray mr-1">Price:</span>
-              {formatPrice(item.product.price)}
-            </span>
-            <div className="flex items-center mt-2">
-              <ChangeQtyBtn onClick={() => handleIncrement(-1)} btnCls="btn-sm">
-                -
-              </ChangeQtyBtn>
-              <span className="mx-4">{qty}</span>
-              <ChangeQtyBtn onClick={() => handleIncrement(1)} btnCls="btn-sm">
-                +
-              </ChangeQtyBtn>
-            </div>
+          <DescriptionRow
+            label="Description:"
+            text={item.product.description}
+          />
+          <DescriptionRow
+            label="Price:"
+            text={formatPrice(item.product.price)}
+          />
+          <div className="flex items-center mt-auto">
+            <ChangeQtyBtn onClick={() => handleIncrement(-1)} btnCls="btn-sm">
+              -
+            </ChangeQtyBtn>
+            <span className="mx-4">{qty}</span>
+            <ChangeQtyBtn onClick={() => handleIncrement(1)} btnCls="btn-sm">
+              +
+            </ChangeQtyBtn>
+            {isPending && <span className="loading loading-spinner ml-3" />}
           </div>
         </div>
-        <span className="absolute top-0 right-0 cursor-pointer hover:text-primary">
+        <button
+          className="static sm:absolute top-0 right-0 cursor-pointer hover:text-primary"
+          onClick={() => {
+            startTransition(async () => {
+              removeItemFromCart(item.product.id);
+            });
+          }}
+        >
           X
-        </span>
+        </button>
       </div>
-      <div className="text-right text-xl text-white font-bold">
-        <span>
-          <span className="text-gray mr-1">Total:</span>
-          {formatPrice(item.product.price * item.quantity)}
-        </span>
+      <div className="text-right text-xl mt-4 text-white font-bold">
+        <DescriptionRow
+          label="Total:"
+          text={formatPrice(item.product.price * item.quantity)}
+        />
       </div>
       <div className="divider before:bg-gray after:bg-gray" />
     </div>

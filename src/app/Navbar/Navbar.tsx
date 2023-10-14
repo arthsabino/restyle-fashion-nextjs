@@ -1,16 +1,18 @@
-import noProfilePic from "@/assets/profile-pic-placeholder.png";
 import { PRODUCT_CATEGORY } from "@/lib/consts";
 import { getCart } from "@/lib/db/cart";
 import { formatPrice } from "@/lib/format";
-import Image from "next/image";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
-import Logo from "../components/Logo";
-import { svgs } from "../components/util/SVGImages";
+import Logo from "../../components/Logo";
+import { svgs } from "../../components/util/SVGImages";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import UserMenuButton from "./UserMenuButton";
 export default async function Navbar() {
   const navigations = PRODUCT_CATEGORY.map((t) => ({
     text: t,
     href: `/category/${t.toLowerCase()}`,
   }));
+  const session = await getServerSession(authOptions);
   const cart = await getCart();
   return (
     <div className="navbar bg-primary sticky top-0 z-20">
@@ -64,30 +66,7 @@ export default async function Navbar() {
             </div>
           </div>
         </div>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <Image src={noProfilePic} alt="no image" height={40} width={40} />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        <UserMenuButton session={session} />
       </div>
     </div>
   );

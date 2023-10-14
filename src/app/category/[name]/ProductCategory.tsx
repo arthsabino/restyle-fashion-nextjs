@@ -15,7 +15,6 @@ export default function ProductCategory({
   products,
   className,
 }: ProductCategoryProps) {
-  console.log(products);
   return (
     <div className={twMerge("py-4 relative w-full", className)}>
       <h3 className="font-semibold text-4xl dancing-script">{name}</h3>

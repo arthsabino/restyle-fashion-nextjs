@@ -54,3 +54,11 @@ export async function createCart(): Promise<ShoppingCart> {
     subtotal: 0,
   };
 }
+
+export async function deleteItemInCart(id: string) {
+  await prisma.cartItem.delete({
+    where: {
+      id,
+    },
+  });
+}

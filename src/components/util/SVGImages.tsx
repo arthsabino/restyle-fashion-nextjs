@@ -63,4 +63,37 @@ export const svgs = {
       />
     </svg>
   ),
+
+  bag: (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+    >
+      <g transform="translate(2.5 2.5) scale(0.25 0.25)">
+        <path
+          d="M19.7047 6.33337L10.0586 19V63.3334C10.0586 65.0131 10.7361 66.624 11.9421 67.8117C13.1481 68.9995 14.7838 69.6667 16.4894 69.6667H61.5047C63.2103 69.6667 64.846 68.9995 66.052 67.8117C67.258 66.624 67.9355 65.0131 67.9355 63.3334V19L58.2894 6.33337H19.7047Z"
+          stroke="currentColor"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10.0586 19H67.9355"
+          stroke="currentColor"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M51.8598 31.6667C51.8598 35.0262 50.5047 38.248 48.0927 40.6234C45.6807 42.9989 42.4094 44.3334 38.9983 44.3334C35.5872 44.3334 32.3158 42.9989 29.9038 40.6234C27.4918 38.248 26.1367 35.0262 26.1367 31.6667"
+          stroke="currentColor"
+          strokeWidth={4}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+    </svg>
+  ),
 };

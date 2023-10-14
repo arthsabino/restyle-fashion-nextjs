@@ -8,7 +8,7 @@ export default function BannerSlider() {
   return (
     <div className="bg-neutral relative py-8">
       <div className="content-container">
-        <Slider slidesToShow={1} arrows={false} ref={ref}>
+        <Slider slidesToShow={1} arrows={false} ref={ref} autoplay>
           <Image
             src={"/banners/1.jpg"}
             alt={"banner1"}

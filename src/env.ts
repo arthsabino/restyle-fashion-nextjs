@@ -1,19 +1,14 @@
-import { createEnv } from "@t3-oss/env-nextjs";
-import { z } from "zod";
-export const env = createEnv({
-  server: {
-    CLOUDINARY_API_SECRET: z.string().min(1),
-  },
-  client: {
-    NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL: z.string().min(1),
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string().min(1),
-    NEXT_PUBLIC_CLOUDINARY_API_KEY: z.string().min(1),
-  },
-  experimental__runtimeEnv: {
-    NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME:
-      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL:
-      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL,
-    NEXT_PUBLIC_CLOUDINARY_API_KEY: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  },
+import zod from "zod";
+const envSchema = zod.object({
+  DATABASE_URL: zod.string().min(1),
+  GOOGLE_CLIENT_ID: zod.string().min(1),
+  GOOGLE_CLIENT_SECRET: zod.string().min(1),
+  NEXTAUTH_URL: zod.string().min(1),
+  NEXTAUTH_SECRET: zod.string().min(1),
+  NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL: zod.string().min(1),
+  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: zod.string().min(1),
+  NEXT_PUBLIC_CLOUDINARY_API_KEY: zod.string().min(1),
+  CLOUDINARY_API_SECRET: zod.string().min(1),
 });
+
+export const env = envSchema.parse(process.env);
