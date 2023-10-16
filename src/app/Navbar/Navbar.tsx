@@ -1,11 +1,10 @@
 import { PRODUCT_CATEGORY } from "@/lib/consts";
 import { getCart } from "@/lib/db/cart";
-import { formatPrice } from "@/lib/format";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import Logo from "../../components/Logo";
-import { svgs } from "../../components/util/SVGImages";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import CartMenuButton from "./CartMeuButton";
 import UserMenuButton from "./UserMenuButton";
 export default async function Navbar() {
   const navigations = PRODUCT_CATEGORY.map((t) => ({
@@ -36,36 +35,7 @@ export default async function Navbar() {
         <Link href={"/add-product"}>
           <button className="btn btn-secondary">Add Product</button>
         </Link>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <span className="h-5 w-5">{svgs.cart}</span>
-              <span className="badge badge-sm indicator-item">
-                {cart?.size || 0}
-              </span>
-            </div>
-          </label>
-          <div
-            tabIndex={0}
-            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
-          >
-            <div className="card-body">
-              <span className="font-bold text-lg">{`${
-                cart?.size || 0
-              } Items`}</span>
-              <span className="text-info">{`Subtotal: ${formatPrice(
-                cart?.subtotal || 0
-              )}`}</span>
-              <div className="card-actions">
-                <Link href={"/user/cart"} className="w-full">
-                  <button className="btn btn-primary btn-block">
-                    View cart
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CartMenuButton cart={cart} />
         <UserMenuButton session={session} />
       </div>
     </div>
