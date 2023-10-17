@@ -1,12 +1,10 @@
+"use server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { getCart } from "./cart";
 import { prisma } from "./prisma";
 
-export type CreateOrderPayload = Prisma.Args<
-  typeof prisma.order,
-  "create"
->["data"];
 export type OrderWithProducts = Prisma.OrderGetPayload<{
   include: { items: { include: { product: true } } };
 }>;
@@ -22,17 +20,22 @@ export async function getOrders() {
   }
 }
 
-export async function createOrder({
-  items,
-}: CreateOrderPayload): Promise<OrderWithProducts | null> {
+export async function createOrderFromCart() {
   const session = await getServerSession(authOptions);
-  if (session) {
+
+  const cart = await getCart();
+  if (session && cart) {
     const newOrder = await prisma.order.create({
       data: {
         userId: session.user.id,
-        items,
       },
-      include: { items: { include: { product: true } } },
+    });
+    await prisma.orderItem.createMany({
+      data: cart?.items.map((p) => ({
+        productId: p.product.id,
+        quantity: p.quantity,
+        orderId: newOrder.id,
+      })),
     });
     return newOrder;
   } else {

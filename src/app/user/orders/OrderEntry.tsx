@@ -12,7 +12,7 @@ interface OrderEntryProps {
 export default function OrderEntry({ product, quantity }: OrderEntryProps) {
   return (
     <div>
-      <div className="flex gap-4 items-start sm:items-stretch relative text-white">
+      <div className="flex gap-4 items-start sm:items-stretch relative">
         <Image
           src={product.imageUrl}
           alt={product.name}
@@ -29,12 +29,10 @@ export default function OrderEntry({ product, quantity }: OrderEntryProps) {
           </Link>
           <DescriptionRow label="Description:" text={product.description} />
           <DescriptionRow label="Price:" text={formatPrice(product.price)} />
-          <div className="flex items-center mt-auto">
-            <span className="mx-4">{quantity}</span>
-          </div>
+          <DescriptionRow label="Quantity:" text={quantity.toString()} />
         </div>
       </div>
-      <div className="text-right text-xl mt-4 text-white font-bold">
+      <div className="text-right text-xl mt-4 font-bold">
         <DescriptionRow
           label="Total:"
           text={formatPrice(product.price * quantity)}

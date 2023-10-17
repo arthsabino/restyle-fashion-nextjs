@@ -21,17 +21,19 @@ export default async function OrdersPage() {
     <div className="content-container py-4 pb-8">
       <h2 className="text-4xl text-center">Orders</h2>
       {orders && orders.length > 0 ? (
-        orders.map((o) => (
-          <Accordion key={o.id} title={`Order #${o.id}`}>
-            {o.items.map((p) => (
-              <OrderEntry
-                key={p.id}
-                product={p.product}
-                quantity={p.quantity}
-              />
-            ))}
-          </Accordion>
-        ))
+        <div className="flex flex-col gap-4">
+          {orders.map((o) => (
+            <Accordion key={o.id} title={`Order #${o.id}`}>
+              {o.items.map((p) => (
+                <OrderEntry
+                  key={p.id}
+                  product={p.product}
+                  quantity={p.quantity}
+                />
+              ))}
+            </Accordion>
+          ))}
+        </div>
       ) : (
         <NoData />
       )}
