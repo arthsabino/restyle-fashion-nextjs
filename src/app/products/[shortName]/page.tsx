@@ -11,12 +11,11 @@ import { incrementProductQuantity } from "./actions";
 interface ProductPageProps {
   params: { shortName: string };
 }
-export const revalidate = 0;
 async function getProduct(shortName: string) {
   const product: Product | null = await prisma.product.findUnique({
     where: { shortName },
   });
-  if (!product) notFound();
+  if (!product || !product.available) notFound();
   return product;
 }
 

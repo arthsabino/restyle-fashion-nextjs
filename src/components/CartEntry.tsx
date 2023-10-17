@@ -37,7 +37,7 @@ export default function CartEntry({
           width={150}
           className="h-48 object-cover rounded"
         />
-        <div className="flex flex-1 flex-col">
+        <div className="flex items-start flex-1 flex-col">
           <Link
             href={`/products/${item.product.shortName}`}
             className="hover:text-primary font-semibold text-2xl"

@@ -6,6 +6,9 @@ import { twMerge } from "tailwind-merge";
 interface CheckoutDetailsProps {
   className?: string;
 }
+
+const checkoutCart = () => {};
+
 export default async function CheckoutDetails({
   className,
 }: CheckoutDetailsProps) {
@@ -18,18 +21,19 @@ export default async function CheckoutDetails({
         collapseCls="bg-primary"
       >
         <div className="flex items-center justify-between">
-          <span className="text-gray">Subtotal:</span>
+          <span>Subtotal:</span>
           <span className="font-bold">
             {formatPrice(cart?.subtotal as number)}
           </span>
         </div>
         <div className="divider" />
         <div className="flex items-center justify-between">
-          <span className="text-gray">Total:</span>
+          <span>Total:</span>
           <span className="font-bold">
             {formatPrice(cart?.subtotal as number)}
           </span>
         </div>
+        <button className="btn btn-accent mt-4 btn-block">Checkout</button>
       </Accordion>
     </div>
   );
