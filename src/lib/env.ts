@@ -5,9 +5,6 @@ const envSchema = zod.object({
   GOOGLE_CLIENT_SECRET: zod.string().min(1),
   NEXTAUTH_URL: zod.string().min(1),
   NEXTAUTH_SECRET: zod.string().min(1),
-  NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL: zod.string().min(1),
-  NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: zod.string().min(1),
-  NEXT_PUBLIC_CLOUDINARY_API_KEY: zod.string().min(1),
   CLOUDINARY_API_SECRET: zod.string().min(1),
 });
 

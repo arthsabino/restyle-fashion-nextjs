@@ -1,14 +1,9 @@
 import ProductCategory from "@/app/category/[name]/ProductCategory";
 import BannerSlider from "@/components/BannerSlider";
 import { PRODUCT_CATEGORY } from "@/lib/consts";
-import { prisma } from "@/lib/db/prisma";
 
 export const revalidate = 0;
 export default async function Home() {
-  const products = await prisma.product.findMany({
-    orderBy: { id: "desc" },
-  });
-
   return (
     <div>
       <BannerSlider />
@@ -19,12 +14,7 @@ export default async function Home() {
         {PRODUCT_CATEGORY.map((c) => (
           <div key={c}>
             <div className="content-container">
-              <ProductCategory
-                name={c}
-                products={products
-                  .filter((p) => p.category === c.toLowerCase())
-                  .splice(0, 3)}
-              />
+              <ProductCategory category={c} />
             </div>
           </div>
         ))}

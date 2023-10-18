@@ -4,7 +4,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body: CreateProductPayload = await request.json();
-  const response: Product = await createProduct(body);
-
+  let response: Product | null = null;
+  for (let i = 0; i < 50; i++) {
+    response = await createProduct({ ...body, shortName: body.shortName + i });
+  }
   return NextResponse.json({ response }, { status: 200 });
 }

@@ -1,6 +1,6 @@
-import { env } from "@/env";
 import { mergeAnonymousCartIntoUserCart } from "@/lib/db/cart";
 import { prisma } from "@/lib/db/prisma";
+import { env } from "@/lib/env";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { NextAuthOptions } from "next-auth";
 import { Adapter } from "next-auth/adapters";
@@ -30,4 +30,3 @@ export const authOptions: NextAuthOptions = {
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
-

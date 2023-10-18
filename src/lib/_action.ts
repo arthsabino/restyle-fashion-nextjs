@@ -1,6 +1,6 @@
 "use server";
 
-import { env } from "@/env";
+import { env } from "@/lib/env";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({

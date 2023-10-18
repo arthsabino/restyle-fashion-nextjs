@@ -1,7 +1,7 @@
 "use client";
 
-import { env } from "@/env";
 import { getSignature } from "@/lib/_action";
+import { clientEnv } from "@/lib/clientEnv";
 import { PRODUCT_CATEGORY, PRODUCT_TAGS } from "@/lib/consts";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -27,13 +27,13 @@ export default function AddProductForm() {
     const clFormData = new FormData();
     clFormData.append("file", imgFile);
     clFormData.append("upload_preset", "rs-images-preset");
-    clFormData.append("api_key", env.NEXT_PUBLIC_CLOUDINARY_API_KEY);
+    clFormData.append("api_key", clientEnv.NEXT_PUBLIC_CLOUDINARY_API_KEY);
     clFormData.append("folder", "rs-images");
     clFormData.append("timestamp", timestamp?.toString());
     clFormData.append("signature", signature);
     try {
       const res = await axios.post(
-        env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL,
+        clientEnv.NEXT_PUBLIC_CLOUDINARY_UPLOAD_URL,
         clFormData
       );
       if (res && res.data && res.status === 200) {
@@ -88,8 +88,9 @@ export default function AddProductForm() {
           required
           className="select select-bordered w-full mb-3"
           name="category"
+          defaultValue={""}
         >
-          <option disabled selected value={""}>
+          <option disabled value={""}>
             Category
           </option>
           {PRODUCT_CATEGORY.map((categ) => (
@@ -99,8 +100,12 @@ export default function AddProductForm() {
           ))}
         </select>
       </div>
-      <select className="select select-bordered w-full mb-3" name="tag">
-        <option disabled selected value={""}>
+      <select
+        className="select select-bordered w-full mb-3"
+        defaultValue={""}
+        name="tag"
+      >
+        <option disabled value={""}>
           Tags
         </option>
         {PRODUCT_TAGS.map((tag) => (
