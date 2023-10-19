@@ -26,7 +26,7 @@ export default async function ProductCategory({
       {products && products.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-2">
           {products.map((p) => (
-            <ProductCard key={p.id} product={p} />
+            <ProductCard key={p.id} product={p} hideBtn />
           ))}
         </div>
       ) : (
