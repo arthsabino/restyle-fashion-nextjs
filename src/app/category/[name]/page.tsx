@@ -42,14 +42,17 @@ export default async function CategoryPage({
   const totalItemCount = products.length;
   const totalPages = Math.ceil(totalItemCount / pageSize);
   const category = await getCategoryByName(name);
-  const paginateProducts = await prisma.product.findMany({
-    where: {
-      categoryId: category.id,
-    },
-    include: { tag: true },
-    skip: (currentPage - 1) * pageSize,
-    take: pageSize,
-  });
+  const paginateProducts =
+    totalItemCount > 0
+      ? await prisma.product.findMany({
+          where: {
+            categoryId: category.id,
+          },
+          include: { tag: true },
+          skip: (currentPage - 1) * pageSize,
+          take: pageSize,
+        })
+      : [];
   return products && totalItemCount > 0 ? (
     <div className="content-container py-4 flex flex-col items-center">
       <PageTitle title={name} />

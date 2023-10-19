@@ -18,7 +18,7 @@ export default async function CartPage() {
       {cart && cart.items.length > 0 ? (
         <div className="flex gap-x-4 gap-y-6 mt-4 md:flex-row flex-col">
           <CartDetails className="basis-2/3" />
-          <CheckoutDetails className="basis-1/3" />
+          <CheckoutDetails className="basis-1/3" cart={cart} />
         </div>
       ) : (
         <div className="flex justify-center flex-col items-center gap-4">

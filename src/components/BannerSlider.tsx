@@ -8,16 +8,23 @@ export default function BannerSlider() {
   return (
     <div className="bg-neutral relative py-8">
       <div className="content-container">
-        <Slider slidesToShow={1} arrows={false} ref={ref} autoplay>
+        <Slider slidesToShow={1} arrows={false} ref={ref}>
+          <video src="/banners/2.mp4" autoPlay muted />
           <Image
-            src={"/banners/1.jpg"}
+            src={"/banners/1.png"}
             alt={"banner1"}
             height={405}
             width={1440}
           />
           <Image
-            src={"/banners/2.jpg"}
-            alt={"banner2"}
+            src={"/banners/3.png"}
+            alt={"banner3"}
+            height={405}
+            width={1440}
+          />
+          <Image
+            src={"/banners/4.png"}
+            alt={"banner4"}
             height={405}
             width={1440}
           />

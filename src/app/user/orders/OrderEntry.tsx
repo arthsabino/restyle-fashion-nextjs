@@ -20,7 +20,7 @@ export default function OrderEntry({ product, quantity }: OrderEntryProps) {
           width={150}
           className="h-48 object-cover rounded"
         />
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col items-start">
           <Link
             href={`/products/${product.shortName}`}
             className="hover:text-primary font-semibold text-2xl"

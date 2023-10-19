@@ -1,5 +1,6 @@
 import Footer from "@/app/Footer";
 import Navbar from "@/app/Navbar/Navbar";
+import ToastProvider from "@/components/Toastify";
 import type { Metadata } from "next";
 import { Signika } from "next/font/google";
 import "slick-carousel/slick/slick-theme.css";
@@ -25,9 +26,11 @@ export default function RootLayout({
       <FaviconMetadata />
       <body className={signika.className}>
         <SessionProvider>
-          <Navbar />
-          <main className="bg-white">{children}</main>
-          <Footer />
+          <ToastProvider>
+            <Navbar />
+            <main className="bg-white">{children}</main>
+            <Footer />
+          </ToastProvider>
         </SessionProvider>
       </body>
     </html>

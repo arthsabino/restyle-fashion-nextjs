@@ -2,6 +2,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
 import { deleteCart, getCart } from "./cart";
 import { prisma } from "./prisma";
 
@@ -60,6 +61,7 @@ export async function createOrderFromCart() {
 
     if (orderData) {
       await deleteCart();
+      revalidatePath("/cart", "page");
       return orderData;
     } else {
       return null;

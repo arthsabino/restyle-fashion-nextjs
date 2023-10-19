@@ -1,16 +1,21 @@
+"use client";
 import Accordion from "@/components/Accordion";
-import { getCart } from "@/lib/db/cart";
+import { ShoppingCart } from "@/lib/db/cart";
 import { createOrderFromCart } from "@/lib/db/order";
 import { formatPrice } from "@/lib/format";
+import { useTransition } from "react";
+import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
 
 interface CheckoutDetailsProps {
+  cart: ShoppingCart | null;
   className?: string;
 }
-export default async function CheckoutDetails({
+export default function CheckoutDetails({
+  cart,
   className,
 }: CheckoutDetailsProps) {
-  const cart = await getCart();
+  const [isPending, startTransition] = useTransition();
   return (
     <div className={twMerge("sticky top-20", className)}>
       <Accordion
@@ -18,22 +23,35 @@ export default async function CheckoutDetails({
         defaultOpen
         collapseCls="bg-primary"
       >
-        <form action={createOrderFromCart}>
-          <div className="flex items-center justify-between">
-            <span>Subtotal:</span>
-            <span className="font-bold">
-              {formatPrice(cart?.subtotal as number)}
-            </span>
-          </div>
-          <div className="divider" />
-          <div className="flex items-center justify-between">
-            <span>Total:</span>
-            <span className="font-bold">
-              {formatPrice(cart?.subtotal as number)}
-            </span>
-          </div>
-          <button className="btn btn-accent mt-4 btn-block">Checkout</button>
-        </form>
+        <div className="flex items-center justify-between">
+          <span>Subtotal:</span>
+          <span className="font-bold">
+            {formatPrice(cart?.subtotal as number)}
+          </span>
+        </div>
+        <div className="divider" />
+        <div className="flex items-center justify-between">
+          <span>Total:</span>
+          <span className="font-bold">
+            {formatPrice(cart?.subtotal as number)}
+          </span>
+        </div>
+        <button
+          className="btn btn-accent mt-4 btn-block"
+          onClick={() => {
+            startTransition(async () => {
+              await createOrderFromCart();
+              toast.success(
+                "Order has been placed! Please check your email for updates."
+              );
+            });
+          }}
+        >
+          <span>Checkout</span>
+          {isPending && (
+            <span className="loading loading-spinner loading-md ml-2" />
+          )}
+        </button>
       </Accordion>
     </div>
   );

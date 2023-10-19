@@ -21,7 +21,10 @@ export async function createProduct(
     product;
   const categoryFromDB = (await prisma.category.findFirst({
     where: {
-      name: category,
+      name: {
+        equals: category,
+        mode: "insensitive",
+      },
     },
   })) as Category;
   return await prisma.product.create({
@@ -50,7 +53,10 @@ export async function getCategoryById(id: string): Promise<Category> {
 export async function getCategoryByName(name: string): Promise<Category> {
   const category = (await prisma.category.findFirst({
     where: {
-      name,
+      name: {
+        equals: name,
+        mode: "insensitive",
+      },
     },
   })) as Category;
 

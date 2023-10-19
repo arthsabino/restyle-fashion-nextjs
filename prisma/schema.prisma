@@ -36,6 +36,7 @@ model Category {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Product   Product[]
+  @@map("category")
 }
 
 model Cart {
