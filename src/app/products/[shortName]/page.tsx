@@ -24,7 +24,7 @@ export async function generateMetadata({
 }: ProductPageProps): Promise<Metadata> {
   const product = await getProduct(shortName);
   return {
-    title: `${product.name} - ReStyle Fashion`,
+    title: product.name,
   };
 }
 export default async function ProductPage({

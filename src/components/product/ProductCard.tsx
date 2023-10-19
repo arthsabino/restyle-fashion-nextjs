@@ -39,12 +39,12 @@ export default function ProductCard({
         <Badge tag={product.tag.name} className="absolute top-0 left-0" />
       )}
       <div className="card-body">
-        <h2 className="card-title">
+        <h1 className="card-title">
           <PriceTag
             price={product.price}
             className="group-hover:text-primary"
           />
-        </h2>
+        </h1>
         <span className="group-hover:text-primary">{product.name}</span>
         {!hideBtn ? (
           <div className="card-actions justify-end">

@@ -12,8 +12,12 @@ import "./globals.css";
 const signika = Signika({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ReStyle Fashion",
-  description: "E-commerce for dresses",
+  title: {
+    default: "ReStyle Fashion",
+    template: "%s - ReStyle Fashion",
+  },
+  description:
+    "E-commerce website for affordable dresses, shorts, and skirts for women.",
 };
 
 export default function RootLayout({

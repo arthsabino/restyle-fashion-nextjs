@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import OrderEntry from "./OrderEntry";
 
 export const metadata: Metadata = {
-  title: "Orders - ReStyle Fashion",
+  title: "Orders",
 };
 
 interface OrderTitleProps {
@@ -43,7 +43,7 @@ export default async function OrdersPage() {
   const orders = await getOrders();
   return (
     <div className="content-container py-4 pb-8">
-      <h2 className="text-4xl text-center">Orders</h2>
+      <h1 className="text-4xl text-center">Orders</h1>
       {orders && orders.length > 0 ? (
         <div className="flex flex-col gap-4">
           {orders.map((o) => (

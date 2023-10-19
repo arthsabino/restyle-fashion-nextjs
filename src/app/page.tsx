@@ -9,9 +9,7 @@ export default async function Home() {
     <div>
       <BannerSlider />
       <div className="py-4">
-        <h3 className="text-center font-semibold text-4xl pt-4">
-          Our Products
-        </h3>
+        <h2 className="text-center pt-4">Our Products</h2>
         {category.map((c) => (
           <div key={c.id}>
             <div className="content-container">
@@ -22,8 +20,8 @@ export default async function Home() {
       </div>
       <div className="py-4 mt-8 pb-10 bg-base-200">
         <div className="content-container text-center">
-          <h3 className="text-center font-semibold text-4xl pt-4">About us</h3>
-          <h3 className="text-2xl pt-8">We are ReStyle Fashion</h3>
+          <h2 className="text-center pt-4">About us</h2>
+          <h4 className="text-2xl pt-8">We are ReStyle Fashion</h4>
           <p className="mt-6 sm:max-w-[70%] mx-auto">
             Welcome to ReStyle Fashion, your go-to thrift shop for stylish and
             affordable dresses, skirts, and shorts for women in the Philippines.

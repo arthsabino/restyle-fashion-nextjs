@@ -9,7 +9,7 @@ export default function BannerSlider() {
     <div className="bg-neutral relative py-8">
       <div className="content-container">
         <Slider slidesToShow={1} arrows={false} ref={ref}>
-          <video src="/banners/2.mp4" autoPlay muted />
+          <video src="/banners/2.mp4" autoPlay muted loop />
           <Image
             src={"/banners/1.png"}
             alt={"banner1"}

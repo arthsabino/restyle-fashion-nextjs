@@ -25,7 +25,7 @@ export default function ProductDetails({
   return (
     <>
       <div className="text-center">
-        <h2 className="font-bold text-4xl">{product.name}</h2>
+        <h1 className="font-bold text-4xl">{product.name}</h1>
         <PriceTag
           price={product.price}
           className="font-bold text-2xl text-accent"

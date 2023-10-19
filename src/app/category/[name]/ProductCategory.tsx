@@ -22,7 +22,7 @@ export default async function ProductCategory({
   });
   return (
     <div className={twMerge("py-4 relative w-full", className)}>
-      <h3 className="font-semibold text-4xl dancing-script">{category}</h3>
+      <h2 className="dancing-script">{category}</h2>
       {products && products.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-2">
           {products.map((p) => (

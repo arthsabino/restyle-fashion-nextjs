@@ -2,7 +2,7 @@ import AddProductForm from "@/components/AddProductForm";
 import { getAllCategory, getAllTags } from "@/lib/db/product";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Add Product - ReStyle Fashion",
+  title: "Add Product",
 };
 export default async function AddProductPage() {
   const category = await getAllCategory();

@@ -4,12 +4,12 @@ import Link from "next/link";
 export default function Footer() {
   const socialLinks = ["facebook", "instagram", "tiktok", "twitter"];
   const footerLinks = [
-    { text: "about", href: "/" },
-    { text: "faq", href: "/" },
-    { text: "terms", href: "/" },
-    { text: "privacy policy", href: "/" },
-    { text: "cookie policy", href: "/" },
-    { text: "contact us", href: "/" },
+    { text: "about", href: "/about-us" },
+    { text: "faq", href: "/faq" },
+    { text: "terms", href: "/terms-and-conditions" },
+    { text: "privacy policy", href: "/privacy-policy" },
+    { text: "cookie policy", href: "/cookie-policy" },
+    { text: "contact us", href: "/contact-us" },
   ];
   return (
     <footer className="footer footer-center p-10 text-base-content rounded mt-8">

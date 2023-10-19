@@ -6,14 +6,14 @@ import CheckoutDetails from "./CheckoutDetails";
 import ShopNowButton from "./ShopNowButton";
 
 export const metadata: Metadata = {
-  title: "My Cart - ReStyle Fashion",
+  title: "My Cart",
 };
 
 export default async function CartPage() {
   const cart = await getCart();
   return (
     <div className="content-container py-4 pb-8">
-      <h2 className="text-4xl text-center">My Cart</h2>
+      <h1 className="text-4xl text-center">My Cart</h1>
 
       {cart && cart.items.length > 0 ? (
         <div className="flex gap-x-4 gap-y-6 mt-4 md:flex-row flex-col">

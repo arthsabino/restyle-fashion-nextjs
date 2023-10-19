@@ -16,10 +16,7 @@ export function generateMetadata({
   params: { name },
 }: CategoryPageProps): Metadata {
   return {
-    title: `${name[0].toUpperCase()}${name.substring(
-      1,
-      name.length
-    )} - ReStyle Fashion`,
+    title: `${name[0].toUpperCase()}${name.substring(1, name.length)}`,
   };
 }
 async function getProductsByCategory(name: string): Promise<Product[]> {
