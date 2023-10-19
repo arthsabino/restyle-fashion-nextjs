@@ -1,6 +1,7 @@
 import PaginationBar from "@/components/PaginationBar";
 import ProductCard from "@/components/product/ProductCard";
 import { prisma } from "@/lib/db/prisma";
+import { getCategoryByName } from "@/lib/db/product";
 import { Product } from "@prisma/client";
 import { Metadata } from "next";
 import PageTitle from "./title";
@@ -22,9 +23,10 @@ export function generateMetadata({
   };
 }
 async function getProductsByCategory(name: string): Promise<Product[]> {
+  const category = await getCategoryByName(name);
   const res = await prisma.product.findMany({
     where: {
-      category: name,
+      categoryId: category.id,
     },
   });
   return res;
@@ -39,10 +41,12 @@ export default async function CategoryPage({
   const pageSize = 8;
   const totalItemCount = products.length;
   const totalPages = Math.ceil(totalItemCount / pageSize);
+  const category = await getCategoryByName(name);
   const paginateProducts = await prisma.product.findMany({
     where: {
-      category: name,
+      categoryId: category.id,
     },
+    include: { tag: true },
     skip: (currentPage - 1) * pageSize,
     take: pageSize,
   });

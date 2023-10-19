@@ -11,6 +11,30 @@ export const metadata: Metadata = {
   title: "Orders - ReStyle Fashion",
 };
 
+interface OrderTitleProps {
+  title: string;
+  status: string;
+}
+
+function OrderTitle({ title, status }: OrderTitleProps) {
+  const badgeClass = {
+    PENDING: "badge-warning",
+    COMPLETED: "badge-success",
+    DEFAULT: "badge-warning",
+  };
+  return (
+    <div className="flex flex-col">
+      {title}
+      <div
+        className={`badge ${
+          badgeClass[status as keyof typeof badgeClass] || "badge-warning"
+        }`}
+      >
+        {status}
+      </div>
+    </div>
+  );
+}
 export default async function OrdersPage() {
   const session = await getServerSession(authOptions);
   if (!session) {
@@ -23,7 +47,12 @@ export default async function OrdersPage() {
       {orders && orders.length > 0 ? (
         <div className="flex flex-col gap-4">
           {orders.map((o) => (
-            <Accordion key={o.id} title={`Order #${o.id}`}>
+            <Accordion
+              key={o.id}
+              title={
+                <OrderTitle title={`Order #${o.id}`} status={o.status.name} />
+              }
+            >
               {o.items.map((p) => (
                 <OrderEntry
                   key={p.id}

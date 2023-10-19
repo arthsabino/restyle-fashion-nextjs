@@ -1,8 +1,7 @@
-import { PRODUCT_TAGS } from "@/lib/consts";
 import { twMerge } from "tailwind-merge";
 
 interface BadgeProps {
-  tag: (typeof PRODUCT_TAGS)[number] | null;
+  tag: string;
   className?: string;
 }
 export default function Badge({ tag, className }: BadgeProps) {
@@ -13,7 +12,12 @@ export default function Badge({ tag, className }: BadgeProps) {
   };
   return (
     tag && (
-      <div className={twMerge(`badge ${BADGE_TAGS[tag]}`, className)}>
+      <div
+        className={twMerge(
+          `badge ${BADGE_TAGS[tag as keyof typeof BADGE_TAGS]}`,
+          className
+        )}
+      >
         <span className="font-semibold text-xs">{tag}</span>
       </div>
     )

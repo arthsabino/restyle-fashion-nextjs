@@ -2,12 +2,19 @@
 
 import { getSignature } from "@/lib/_action";
 import { clientEnv } from "@/lib/clientEnv";
-import { PRODUCT_CATEGORY, PRODUCT_TAGS } from "@/lib/consts";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import FormSubmitButton from "./FormSubmitButton";
 
-export default function AddProductForm() {
+interface AddProductFormProps {
+  productTags: string[];
+  productCategory: string[];
+}
+
+export default function AddProductForm({
+  productTags,
+  productCategory,
+}: AddProductFormProps) {
   const { push } = useRouter();
   async function addProduct(formData: FormData) {
     const name = formData.get("name")?.toString();
@@ -93,7 +100,7 @@ export default function AddProductForm() {
           <option disabled value={""}>
             Category
           </option>
-          {PRODUCT_CATEGORY.map((categ) => (
+          {productCategory.map((categ) => (
             <option key={categ} value={categ}>
               {categ}
             </option>
@@ -108,7 +115,7 @@ export default function AddProductForm() {
         <option disabled value={""}>
           Tags
         </option>
-        {PRODUCT_TAGS.map((tag) => (
+        {productTags.map((tag) => (
           <option key={tag} value={tag}>
             {tag}
           </option>

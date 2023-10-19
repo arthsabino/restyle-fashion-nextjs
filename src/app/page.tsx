@@ -1,9 +1,10 @@
-import ProductCategory from "@/app/category/[name]/ProductCategory";
 import BannerSlider from "@/components/BannerSlider";
-import { PRODUCT_CATEGORY } from "@/lib/consts";
+import { getAllCategory } from "@/lib/db/product";
+import ProductCategory from "./category/[name]/ProductCategory";
 
 export const revalidate = 0;
 export default async function Home() {
+  const category = await getAllCategory();
   return (
     <div>
       <BannerSlider />
@@ -11,10 +12,10 @@ export default async function Home() {
         <h3 className="text-center font-semibold text-4xl pt-4">
           Our Products
         </h3>
-        {PRODUCT_CATEGORY.map((c) => (
-          <div key={c}>
+        {category.map((c) => (
+          <div key={c.id}>
             <div className="content-container">
-              <ProductCategory category={c} />
+              <ProductCategory category={c.name} />
             </div>
           </div>
         ))}

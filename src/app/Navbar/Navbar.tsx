@@ -1,5 +1,5 @@
-import { PRODUCT_CATEGORY } from "@/lib/consts";
 import { getCart } from "@/lib/db/cart";
+import { getAllCategory } from "@/lib/db/product";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import Logo from "../../components/Logo";
@@ -7,9 +7,10 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import CartMenuButton from "./CartMeuButton";
 import UserMenuButton from "./UserMenuButton";
 export default async function Navbar() {
-  const navigations = PRODUCT_CATEGORY.map((t) => ({
-    text: t,
-    href: `/category/${t.toLowerCase()}`,
+  const category = await getAllCategory();
+  const navigations = category.map((t) => ({
+    text: t.name,
+    href: `/category/${t.name.toLowerCase()}`,
   }));
   const session = await getServerSession(authOptions);
   const cart = await getCart();

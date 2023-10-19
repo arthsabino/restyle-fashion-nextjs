@@ -1,5 +1,9 @@
-import { Product } from "@prisma/client";
+import { Category, Prisma, Product } from "@prisma/client";
 import { prisma } from "./prisma";
+
+export type ProductWithTags = Prisma.ProductGetPayload<{
+  include: { tag: true };
+}>;
 
 export type CreateProductPayload = {
   name: string;
@@ -15,6 +19,11 @@ export async function createProduct(
 ): Promise<Product> {
   const { name, description, imageUrl, category, stock, price, shortName } =
     product;
+  const categoryFromDB = (await prisma.category.findFirst({
+    where: {
+      name: category,
+    },
+  })) as Category;
   return await prisma.product.create({
     data: {
       name,
@@ -23,7 +32,37 @@ export async function createProduct(
       imageUrl,
       stock,
       price,
-      category,
+      categoryId: categoryFromDB.id,
     },
   });
+}
+
+export async function getCategoryById(id: string): Promise<Category> {
+  const category = (await prisma.category.findUnique({
+    where: {
+      id,
+    },
+  })) as Category;
+
+  return category;
+}
+
+export async function getCategoryByName(name: string): Promise<Category> {
+  const category = (await prisma.category.findFirst({
+    where: {
+      name,
+    },
+  })) as Category;
+
+  return category;
+}
+
+export async function getAllCategory() {
+  const category = await prisma.category.findMany();
+  return category;
+}
+
+export async function getAllTags() {
+  const tags = await prisma.tag.findMany();
+  return tags;
 }

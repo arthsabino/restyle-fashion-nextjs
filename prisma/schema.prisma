@@ -15,15 +15,27 @@ model Product {
   name        String
   price       Int
   stock       Int         @default(1)
-  available Boolean @default(true)
-  tag         String?
-  category    String
+  available   Boolean     @default(true)
+  tagId       String?      @db.ObjectId
+  tag         Tag?        @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  categoryId  String      @db.ObjectId
+  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  reviewId    String?      @db.ObjectId
+  review      Review?     @relation(fields: [reviewId], references: [id], onDelete: Cascade)
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   CartItem    CartItem[]
   OrderItem   OrderItem[]
 
   @@map("products")
+}
+
+model Category {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
 }
 
 model Cart {
@@ -88,6 +100,7 @@ model User {
   sessions      Session[]
   Cart          Cart[]
   Order         Order[]
+  Review        Review[]
 
   @@map("users")
 }
@@ -105,8 +118,10 @@ model VerificationToken {
 model Order {
   id        String      @id @default(auto()) @map("_id") @db.ObjectId
   items     OrderItem[]
+  statusId  String      @db.ObjectId
+  status    OrderStatus @relation(fields: [statusId], references: [id], onDelete: Cascade)
   userId    String?     @db.ObjectId
-  user      User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
@@ -114,14 +129,46 @@ model Order {
 }
 
 model OrderItem {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  productId String  @db.ObjectId
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   quantity  Int
-  orderId   String  @db.ObjectId
-  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  orderId   String   @db.ObjectId
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("orderitems")
+}
+
+model OrderStatus {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order[]
+
+  @@map("orderstatus")
+}
+
+model Tag {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+
+  @@map("tags")
+}
+
+model Review {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String    @db.ObjectId
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Product   Product[]
+
+  @@map("reviews")
 }

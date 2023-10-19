@@ -1,19 +1,22 @@
 import NoData from "@/components/NoData";
 import ProductCard from "@/components/product/ProductCard";
 import { prisma } from "@/lib/db/prisma";
+import { getCategoryById } from "@/lib/db/product";
 
 interface RecommendedProductsProps {
   currentProductId: string;
-  category: string;
+  categoryId: string;
 }
 export default async function RecommendedProducts({
   currentProductId,
-  category,
+  categoryId,
 }: RecommendedProductsProps) {
+  const prodCategory = await getCategoryById(categoryId);
   const products = await prisma.product.findMany({
     take: 5,
+    include: { tag: true },
     where: {
-      category,
+      categoryId: prodCategory.id,
       NOT: {
         id: currentProductId,
       },

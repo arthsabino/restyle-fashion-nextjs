@@ -1,6 +1,7 @@
 import NoData from "@/components/NoData";
 import ProductCard from "@/components/product/ProductCard";
 import { prisma } from "@/lib/db/prisma";
+import { getCategoryByName } from "@/lib/db/product";
 import { twMerge } from "tailwind-merge";
 
 interface ProductCategoryProps {
@@ -11,10 +12,12 @@ export default async function ProductCategory({
   category,
   className,
 }: ProductCategoryProps) {
+  const prodCategory = await getCategoryByName(category);
   const products = await prisma.product.findMany({
     where: {
-      category: category.toLowerCase(),
+      categoryId: prodCategory.id,
     },
+    include: { tag: true },
     take: 3,
   });
   return (

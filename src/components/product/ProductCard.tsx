@@ -1,6 +1,5 @@
 "use client";
-import { PRODUCT_TAGS } from "@/lib/consts";
-import { Product } from "@prisma/client";
+import { ProductWithTags } from "@/lib/db/product";
 import Image from "next/image";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
@@ -8,7 +7,7 @@ import Badge from "./Badge";
 import PriceTag from "./PriceTag";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductWithTags;
   className?: string;
   hideBtn?: boolean;
 }
@@ -37,10 +36,7 @@ export default function ProductCard({
       </figure>
 
       {product.tag && (
-        <Badge
-          tag={product.tag as (typeof PRODUCT_TAGS)[number]}
-          className="absolute top-0 left-0"
-        />
+        <Badge tag={product.tag.name} className="absolute top-0 left-0" />
       )}
       <div className="card-body">
         <h2 className="card-title">

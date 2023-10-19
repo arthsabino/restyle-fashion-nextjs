@@ -62,7 +62,7 @@ export default async function ProductPage({
         </div>
         <RecommendedProducts
           currentProductId={product.id}
-          category={product.category}
+          categoryId={product.categoryId}
         />
       </div>
     </article>
