@@ -2,7 +2,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { getCart } from "./cart";
+import { deleteCart, getCart } from "./cart";
 import { prisma } from "./prisma";
 
 export type OrderWithProducts = Prisma.OrderGetPayload<{
@@ -57,7 +57,13 @@ export async function createOrderFromCart() {
       },
       include: { status: true },
     });
-    return orderData;
+
+    if (orderData) {
+      await deleteCart();
+      return orderData;
+    } else {
+      return null;
+    }
   } else {
     return null;
   }

@@ -86,6 +86,18 @@ export async function deleteItemInCart(id: string) {
   });
 }
 
+export async function deleteCart() {
+  const session = await getServerSession(authOptions);
+  const cart = await getCart();
+  if (session && cart) {
+    await prisma.cart.delete({
+      where: {
+        id: cart.id,
+      },
+    });
+  }
+}
+
 export async function mergeAnonymousCartIntoUserCart(userId: string) {
   const localCartId = cookies().get("localCartId")?.value;
 
