@@ -10,15 +10,33 @@ export type OrderWithProducts = Prisma.OrderGetPayload<{
   include: { items: { include: { product: true } } };
 }>;
 
-export async function getOrders() {
+export type OrderWithProductsAndStatus = Prisma.OrderGetPayload<{
+  include: { items: { include: { product: true } }; status: true };
+}>;
+
+export async function getOrders(): Promise<
+  OrderWithProductsAndStatus[] | null
+> {
   const session = await getServerSession(authOptions);
   if (session) {
-    const orders = await prisma.order.findMany({
+    const orders: OrderWithProductsAndStatus[] = await prisma.order.findMany({
       where: { userId: session.user.id },
       include: { items: { include: { product: true } }, status: true },
     });
     return orders;
   }
+  return null;
+}
+
+export async function getOrderById(
+  id: string
+): Promise<OrderWithProductsAndStatus | null> {
+  const order: OrderWithProductsAndStatus | null =
+    await prisma.order.findUnique({
+      where: { id },
+      include: { items: { include: { product: true } }, status: true },
+    });
+  return order;
 }
 
 export async function getDefaultOrderStatus() {

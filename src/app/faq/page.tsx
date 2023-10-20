@@ -80,9 +80,9 @@ export default function FAQPage() {
   return (
     <div className="content-container py-8">
       <h1>Frequently Asked Questions (FAQ)</h1>
-      <ol className="mt-8 flex flex-col gap-6 numbered">
+      <ol className="mt-8 flex flex-col gap-6">
         {faqArray.map((f) => (
-          <li key={f[0]} className="flex flex-col gap-2">
+          <li key={f[0]}>
             <span className="font-semibold">{f[1]}</span>
             <p>{f[2]}</p>
           </li>

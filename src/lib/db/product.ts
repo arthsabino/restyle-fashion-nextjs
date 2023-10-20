@@ -13,12 +13,21 @@ export type CreateProductPayload = {
   stock: number;
   price: number;
   category: string;
+  tag: string;
 };
 export async function createProduct(
   product: CreateProductPayload
 ): Promise<Product> {
-  const { name, description, imageUrl, category, stock, price, shortName } =
-    product;
+  const {
+    name,
+    description,
+    imageUrl,
+    category,
+    stock,
+    price,
+    shortName,
+    tag,
+  } = product;
   const categoryFromDB = (await prisma.category.findFirst({
     where: {
       name: {
@@ -27,6 +36,14 @@ export async function createProduct(
       },
     },
   })) as Category;
+  const tagFromDB = await prisma.tag.findFirst({
+    where: {
+      name: {
+        equals: tag,
+        mode: "insensitive",
+      },
+    },
+  });
   return await prisma.product.create({
     data: {
       name,
@@ -35,7 +52,8 @@ export async function createProduct(
       imageUrl,
       stock,
       price,
-      categoryId: categoryFromDB.id,
+      categoryId: categoryFromDB?.id ?? null,
+      tagId: tagFromDB?.id ?? null,
     },
   });
 }

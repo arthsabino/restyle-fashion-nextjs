@@ -12,7 +12,7 @@ export default function ToastProvider({ children }: ToastProviderProps) {
     <>
       {children}
       <ToastContainer
-        className="min-w-fit text-sm md:text-base"
+        className="min-w-fit text-sm md:text-base bg-base-100"
         position="top-center"
         limit={3}
       />

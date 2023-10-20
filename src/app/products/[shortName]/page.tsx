@@ -4,7 +4,6 @@ import { Product } from "@prisma/client";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import ProductReview from "./ProductReviews";
 import RecommendedProducts from "./RecommendedProducts";
 import { incrementProductQuantity } from "./actions";
 
@@ -48,12 +47,12 @@ export default async function ProductPage({
             product={product}
             incrementProductQuantity={incrementProductQuantity}
           />
-          <div className="mt-12">
+          {/* <div className="mt-12">
             <div className="divider before:bg-neutral after:bg-neutral">
               <span className="italic">Feedback & Reviews</span>
             </div>
             <ProductReview />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="mt-16">

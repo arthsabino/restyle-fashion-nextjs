@@ -7,9 +7,14 @@ import Link from "next/link";
 interface OrderEntryProps {
   product: Product;
   quantity: number;
+  showComment?: boolean;
 }
 
-export default function OrderEntry({ product, quantity }: OrderEntryProps) {
+export default function OrderEntry({
+  product,
+  quantity,
+  showComment = false,
+}: OrderEntryProps) {
   return (
     <div>
       <div className="flex gap-4 items-start sm:items-stretch relative">

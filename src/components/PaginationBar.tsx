@@ -19,6 +19,7 @@ export default function PaginationBar({
         className={`join-item btn ${
           page === currentPage ? "btn-active pointer-events-none" : ""
         }`}
+        scroll={false}
       >
         {page}
       </Link>

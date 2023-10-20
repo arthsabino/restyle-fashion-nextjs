@@ -17,6 +17,7 @@ export default function ProductCard({
   className,
   hideBtn = false,
 }: ProductCardProps) {
+  console.log(product);
   return (
     <Link
       href={`/products/${product.shortName}`}
