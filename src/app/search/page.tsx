@@ -11,7 +11,7 @@ export async function generateMetadata({
   searchParams: { query, page = "1" },
 }: SearchPageProps): Promise<Metadata> {
   return {
-    title: `${query} - Page ${page}`,
+    title: `Search:${query} - Page ${page}`,
   };
 }
 
