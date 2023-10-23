@@ -53,8 +53,7 @@ export default async function CategoryPage({
   return products && totalItemCount > 0 ? (
     <div className="content-container py-4 flex flex-col items-center">
       <PageTitle title={name} />
-      <div className="py-4 flex items-center"></div>
-      <div className="product-container">
+      <div className="product-container py-4">
         {paginateProducts.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}

@@ -1,11 +1,23 @@
+import { svgs } from "@/components/util/SVGImages";
 import { getCart } from "@/lib/db/cart";
 import { getAllCategory } from "@/lib/db/product";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 import Logo from "../../components/Logo";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import CartMenuButton from "./CartMeuButton";
 import UserMenuButton from "./UserMenuButton";
+
+export async function searchProducts(formData: FormData) {
+  "use server";
+  const searchQuery = formData.get("searchQuery")?.toString();
+
+  if (searchQuery) {
+    redirect("/search?query=" + searchQuery);
+  }
+}
 export default async function Navbar() {
   const category = await getAllCategory();
   const navigations = category.map((t) => ({
@@ -36,8 +48,11 @@ export default async function Navbar() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-fit"
           >
+            <li>
+              <SearchForm formCls="!gap-0 inline-flex md:hidden" />
+            </li>
             {navigations.map((p) => (
               <li key={p.text}>
                 <Link href={p.href} className="font-semibold">
@@ -63,9 +78,29 @@ export default async function Navbar() {
         </ul>
       </div>
       <div className="navbar-end gap-x-2">
+        <SearchForm formCls="md:inline-flex hidden" />
         <CartMenuButton cart={cart} />
         <UserMenuButton session={session} />
       </div>
     </div>
+  );
+}
+
+interface SearchFormProps {
+  formCls?: string;
+}
+
+async function SearchForm({ formCls }: SearchFormProps) {
+  return (
+    <form action={searchProducts} className={twMerge("join", formCls)}>
+      <input
+        className="input input-bordered join-item"
+        placeholder="Search"
+        name="searchQuery"
+      />
+      <button className="btn join-item" type="submit">
+        <span className="h-4 w-4">{svgs.search}</span>
+      </button>
+    </form>
   );
 }

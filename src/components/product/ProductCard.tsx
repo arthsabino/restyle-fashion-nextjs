@@ -17,12 +17,11 @@ export default function ProductCard({
   className,
   hideBtn = false,
 }: ProductCardProps) {
-  console.log(product);
   return (
     <Link
       href={`/products/${product.shortName}`}
       className={twMerge(
-        `card bg-base-content text-white card-compact w-full group hover:scale-95 duration-200 relative`,
+        `card bg-base-content text-white card-compact w-full group hover:scale-95 duration-200`,
         className
       )}
     >
@@ -35,12 +34,9 @@ export default function ProductCard({
           className="h-72 object-cover"
         />
       </figure>
-
-      {product.tag && (
-        <Badge tag={product.tag.name} className="absolute top-0 left-0" />
-      )}
       <div className="card-body">
-        <h1 className="card-title">
+        <h1 className="card-title flex-col items-start">
+          {product.tag && <Badge tag={product.tag.name} />}
           <PriceTag
             price={product.price}
             className="group-hover:text-primary"
