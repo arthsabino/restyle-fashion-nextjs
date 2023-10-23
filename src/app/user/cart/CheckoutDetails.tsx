@@ -4,7 +4,7 @@ import { ShoppingCart } from "@/lib/db/cart";
 import { createOrderFromCart } from "@/lib/db/order";
 import { formatPrice } from "@/lib/format";
 import { Session } from "next-auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
